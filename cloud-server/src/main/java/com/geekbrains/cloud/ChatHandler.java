@@ -49,7 +49,6 @@ public class ChatHandler implements Runnable {
         return Arrays.asList(list);
     }
 
-
     @Override
     public void run() {
          buffer = new byte[256];

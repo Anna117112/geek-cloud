@@ -8,7 +8,6 @@ public class EchoServer {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(8289)) {
             System.out.println("Server started");
-
             while (true) {
                 Socket socket = server.accept();
                 ChatHandler handler = new ChatHandler(socket);

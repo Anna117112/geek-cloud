@@ -51,7 +51,6 @@ public class Network {
         os.writeUTF(message);
        os.flush();
     }
-
     public DataOutputStream getOut() {
         return os;
     }
