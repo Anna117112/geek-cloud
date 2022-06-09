@@ -14,7 +14,7 @@ public class Network {
     private DataOutputStream os;
     private InputStream isFile;
     private ChatController controller;
-    public  FileClient fileClient;
+
 
     OutputStream out;
     private final String MYFILE = "C:\\Users\\adyak\\IdeaProjects\\geek-cloud\\cloud-application\\file\\";
@@ -39,6 +39,12 @@ public class Network {
     public int getInt() throws IOException {
         return is.readInt();
     }
+
+    public long getlong() throws IOException {
+        return is.readLong();
+    }
+
+
 // передаем сообщения серверу
     public void writeMessage(String message) throws IOException {
 

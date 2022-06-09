@@ -10,7 +10,6 @@ public class EchoServer {
             System.out.println("Server started");
 
             while (true) {
-
                 Socket socket = server.accept();
                 ChatHandler handler = new ChatHandler(socket);
                 new Thread(handler).start();

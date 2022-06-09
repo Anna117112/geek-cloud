@@ -15,12 +15,13 @@ public class ChatHandler implements Runnable {
     private DataOutputStream os;
     OutputStream out;
     InputStream in;
-    private final String serverFiles = "C:\\Users\\adyak\\IdeaProjects\\geek-cloud\\cloud-server\\files_server\\";
+    private final String serverFiles = "C:\\Users\\adyak\\IdeaProjects\\geek-cloud\\cloud-server\\files\\";
+    private byte[] buffer;
 
     public ChatHandler(Socket socket) throws IOException {
         is = new DataInputStream(socket.getInputStream());
         os = new DataOutputStream(socket.getOutputStream());
-        //in = socket.getInputStream();
+
 
         System.out.println("Client accepted");
         //при подключнии клиета вытаскиваем все файлы
@@ -41,7 +42,6 @@ public class ChatHandler implements Runnable {
         }
         os.flush();
     }
-
     // получаем список файлов из папки серевра
     private List<String> getFiles(String dir) {
         String[] list = new File(dir).list();
@@ -52,34 +52,103 @@ public class ChatHandler implements Runnable {
 
     @Override
     public void run() {
-        byte[] buffer = new byte[256];
+         buffer = new byte[256];
         try {
-            String command = is.readUTF();
-            if (command.equals("#file")) {
-                // читаем имя файла
-                String fileName = is.readUTF();
-                System.out.println(fileName+"run");
-                // размер
-                long len = is.readLong();
-                // берем имя дирректории создаем файл который получили
-                File file = Path.of(serverFiles).resolve(fileName).toFile();
-                try (FileOutputStream fos = new FileOutputStream(file)) {
-                    for (int i = 0; i < (len + 255) / 256; i++) {
-                        int read = is.read(buffer);
-                        fos.write(buffer, 0, read);
+            while (true) {
+                String command = is.readUTF();
+                if (command.equals("#file")) {
+                    String fileName = is.readUTF();
+                    System.out.println(fileName + "run");
+                    // размер
+                    long len = is.readLong();
+                    // берем имя дирректории создаем файл который получили
+                    File file = Path.of(serverFiles).resolve(fileName).toFile();
+                    try (FileOutputStream fos = new FileOutputStream(file)) {
+                        for (int i = 0; i < (len + 255) / 256; i++) {
+                            int read = is.read(buffer);
+                            fos.write(buffer, 0, read);
 
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    sendListOfFiles(serverFiles);
+
+                }
+                else if (command.equals("#server_file")){
+                    os.writeUTF("#list_client");
+                    String clientFileName = is.readUTF();
+                    System.out.println( "command #server_file" + clientFileName);
+                    os.writeUTF(clientFileName);
+
+                    // находим выбранный файл в папке
+                    // берем его размер
+                    File toSend = Path.of(serverFiles).resolve(clientFileName).toFile();
+                    // отправляем размер файла
+                    os.writeLong(toSend.length());
+                    // чтение из файла через try сам потом закроет поток чтения
+                    try (FileInputStream fis = new FileInputStream(toSend)) {
+                        // читаем все
+                        while (fis.available() > 0) {
+                            int read = fis.read(buffer);
+                            // пишем все что прочитали
+                            os.write(buffer, 0, read);
+                        }
+
+//
 
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-                sendListOfFiles(serverFiles);
             }
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+    }
+// находим имя полученного файла на сервере и отправляем его на клиент
+    private void fileServerToClient() throws IOException {
+        os.writeUTF("#list_client");
+        String clientFileName = is.readUTF();
+
+        // находим выбранный файл в папке
+        // берем его размер
+        File toSend = Path.of(serverFiles).resolve(clientFileName).toFile();
+        // отправляем размер файла
+        os.writeLong(toSend.length());
+        // чтение из файла через try сам потом закроет поток чтения
+        try (FileInputStream fis = new FileInputStream(toSend)) {
+            // читаем все
+            while (fis.available() > 0) {
+                int read = fis.read(buffer);
+                // пишем все что прочитали
+                os.write(buffer, 0, read);
+            }
+        }
+
+    }
+    private void createFileToServer() throws IOException {
+        String fileName = is.readUTF();
+        System.out.println(fileName + "run");
+        // размер
+        long len = is.readLong();
+        // берем имя дирректории создаем файл который получили
+        File file = Path.of(serverFiles).resolve(fileName).toFile();
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            for (int i = 0; i < (len + 255) / 256; i++) {
+                int read = is.read(buffer);
+                fos.write(buffer, 0, read);
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sendListOfFiles(serverFiles);
+
     }
 }
 
