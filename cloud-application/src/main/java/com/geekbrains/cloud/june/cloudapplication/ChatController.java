@@ -29,6 +29,7 @@ public class ChatController implements Initializable {
     private final String MYFILE = "C:\\Users\\adyak\\IdeaProjects\\geek-cloud\\cloud-application\\file\\";
     private byte[] bytes;
 
+
     public void sendMess(ActionEvent actionEvent) throws IOException {
         // берем текст из TextField и отправляем
         //  String msg = textField.getText();
