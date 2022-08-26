@@ -38,6 +38,7 @@ public class ChatHandler implements Runnable {
         for (String file : files) {
             os.writeUTF(file);
 
+
             System.out.println(file + "sendListOfFiles");
         }
         os.flush();

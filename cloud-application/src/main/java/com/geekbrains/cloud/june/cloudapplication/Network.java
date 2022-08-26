@@ -44,7 +44,6 @@ public class Network {
         return is.readLong();
     }
 
-
 // передаем сообщения серверу
     public void writeMessage(String message) throws IOException {
 

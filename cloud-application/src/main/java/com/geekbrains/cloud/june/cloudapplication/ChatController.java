@@ -1,11 +1,16 @@
 package com.geekbrains.cloud.june.cloudapplication;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.*;
 import java.net.URL;
@@ -15,6 +20,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
+
     private Network network;
     //    @FXML
 //    public TextField textField;
@@ -25,6 +31,7 @@ public class ChatController implements Initializable {
 
     @FXML
     public Button buttonOut;
+
 
     private final String MYFILE = "C:\\Users\\adyak\\IdeaProjects\\geek-cloud\\cloud-application\\file\\";
     private byte[] bytes;
@@ -94,6 +101,7 @@ public class ChatController implements Initializable {
             String dir = MYFILE;
             bytes = new byte[256];
             // передаем пкть к директории и выводим список файлов а лис клиента
+
             clientList.getItems().addAll(getFiles(MYFILE));
 
             ///  System.out.println("Users: " + System.getProperty("Users"));
@@ -188,7 +196,13 @@ public class ChatController implements Initializable {
         assert list != null;
         return Arrays.asList(list);
     }
-}
+
+
+
+
+
+    }
+
 
 
 
