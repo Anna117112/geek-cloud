@@ -4,12 +4,11 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.geekbrains.cloud.june.cloudapplication.ChatController">
-   <Button layoutX="266.0" layoutY="92.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" text="&gt;" onAction="#fileFromServer"/>
-   <ListView fx:id="clientList" layoutX="14.0" layoutY="11.0" prefHeight="358.0" prefWidth="200.0"/>
-   <ListView fx:id="serverList" layoutX="386.0" layoutY="10.0" prefHeight="357.0" prefWidth="200.0"/>
-   <Button layoutX="266.0" layoutY="177.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="40.0" text="&lt;" onAction="#fileFromClient"/>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.geekbrains.cloud.june.cloudapplication.ChatController">
+   <Button layoutX="266.0" layoutY="92.0" mnemonicParsing="false" onAction="#fileFromServer" prefHeight="42.0" prefWidth="40.0" text="&gt;" />
+   <ListView fx:id="serverList" layoutX="386.0" layoutY="10.0" prefHeight="357.0" prefWidth="200.0"  />
+   <Button layoutX="266.0" layoutY="177.0" mnemonicParsing="false" onAction="#fileFromClient" prefHeight="42.0" prefWidth="40.0" text="&lt;" />
+ <AnchorPane layoutX="31.0" layoutY="170.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+   <ListView fx:id="clientList" layoutX="9.0" layoutY="16.0" prefHeight="370.0" prefWidth="238.0" />
+   <Button layoutX="266.0" layoutY="16.0" mnemonicParsing="false" text="up" />
 </AnchorPane>

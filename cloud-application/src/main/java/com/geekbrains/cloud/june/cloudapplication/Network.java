@@ -44,14 +44,12 @@ public class Network {
         return is.readLong();
     }
 
-
 // передаем сообщения серверу
     public void writeMessage(String message) throws IOException {
 
         os.writeUTF(message);
        os.flush();
     }
-
     public DataOutputStream getOut() {
         return os;
     }

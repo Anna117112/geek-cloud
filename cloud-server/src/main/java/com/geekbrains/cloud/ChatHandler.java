@@ -38,6 +38,7 @@ public class ChatHandler implements Runnable {
         for (String file : files) {
             os.writeUTF(file);
 
+
             System.out.println(file + "sendListOfFiles");
         }
         os.flush();
@@ -48,7 +49,6 @@ public class ChatHandler implements Runnable {
         assert list !=null;
         return Arrays.asList(list);
     }
-
 
     @Override
     public void run() {
